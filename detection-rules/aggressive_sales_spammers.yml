@@ -1,0 +1,20 @@
+name: "Aggressive Sales Spammers"
+description: |
+  A rule to quarantine known aggressive sales spammers.
+type: "rule"
+severity: "high"
+authors:
+  - name: "Ricky Lee"
+  - github: "dabestspoona"
+source: |
+  type.inbound
+  and sender.email.email in $aggressive_sales_spammers
+tags:
+  - "Scam"
+  - "Fraud Language"
+attack_types:
+  - "Callback Phishing"
+  - "BEC/Fraud"
+tactics_and_techniques:
+  - "Social engineering"
+
