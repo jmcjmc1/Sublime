@@ -1,0 +1,28 @@
+name: "Callback Phishing: Fake Invoice"
+description: "This rule scans for a QR code in the pdf attachment for a bank:// link to create a SEPA payment. This is currently used in Phishing Attacks in Germany"
+type: "rule"
+severity: "high"
+authors:
+  - twitter: "affje0x65"
+source: |
+    type.inbound
+    and (
+      (
+        profile.by_sender().prevalence in ("new", "outlier")
+        and not profile.by_sender().solicited
+      )
+      or (profile.by_sender().any_messages_malicious_or_spam)
+    )
+    and any(attachments,
+            .file_extension == "pdf"
+            and any(file.explode(.),
+                    (strings.icontains(.scan.exiftool.producer, "iText"))
+            )
+            and any(file.explode(.),
+                    any(.scan.strings.strings,
+                        strings.ilike(., "*Girocode*")
+                    )
+            )
+    )
+    
+    

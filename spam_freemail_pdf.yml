@@ -1,0 +1,29 @@
+name: "Spam: Suspicious Short Email from Free-mail Domain with PDF Attachment"
+description: |
+    Detects inbound emails from either free-mail domains or non-whitelisted corporate domains that include only a PDF attachment (single or any PDF) and have fewer than 100 characters in the plain-text body. This minimal-text, PDF-only delivery is a common tactic for spam, unwanted commercial offers, and PDF-based phishing.
+type: "rule"
+severity: "low"
+authors:
+  - twitter: "affje0x65"
+references:
+  - Internal Research
+source: |
+    type.inbound
+    and (
+      (
+        sender.email.domain.root_domain in $free_email_providers
+        and sender.email.email not in $sender_emails
+      )
+      or (
+        sender.email.domain.root_domain not in $free_email_providers
+        and sender.email.domain.domain not in $sender_domains
+      )
+    )
+    // attachment is pdf
+    
+        and (
+          length(attachments) == 1
+          or any(attachments, .file_type == 'pdf')
+        )
+    // short body, basically just the PDF
+    and length(body.plain.raw) < 100
