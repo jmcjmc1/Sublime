@@ -6,6 +6,7 @@ type: "rule"
 severity: "medium"
 source: |
   type.inbound
+  // look at incoming mail only, ignore internal (auth) or outbound //
   and any(attachments,
     (
       .file_type in $file_types_images or 
@@ -28,4 +29,5 @@ detection_methods:
   - "QR code analysis"
 
   - "File analysis"
+
 
