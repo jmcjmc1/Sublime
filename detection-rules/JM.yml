@@ -10,8 +10,8 @@ source: |
   and any(attachments,
   // examines all files attached to the email //
     (
+      .file_type == "pdf" or
       .file_type in $file_types_images or 
-      .file_type == "pdf" or 
       .file_extension in $file_extensions_macros
     )
     and any(file.explode(.), .scan.qr.type == "url")
@@ -30,6 +30,7 @@ detection_methods:
   - "QR code analysis"
 
   - "File analysis"
+
 
 
 
