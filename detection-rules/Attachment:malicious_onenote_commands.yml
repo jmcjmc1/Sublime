@@ -3,7 +3,7 @@ description: |
   Scans for OneNote attachments that contain embedded suspicious commands or scripts that may indicate malicious activity, commonly used to deliver malware.
 type: "rule"
 authors:
-  -  name: "Sublime Community"
+  -  name: "Juliet McMullen, Sublime Community"
 severity: "high"
 source: |
   type.inbound
