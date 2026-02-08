@@ -26,6 +26,7 @@ authors:
 tags:
   - "Quishing"
   - "QR Code"
+  - "Social engineering"
 attack_types:
   - "Credential Phishing"
 tactics_and_techniques:
@@ -34,6 +35,9 @@ tactics_and_techniques:
 detection_methods:
   - "QR code analysis"
   - "File analysis"
+false_positives:
+  - "Legitimate emails containg QR codes for mobile authentication from legit tools e'g OKTA etc and QR codes from legitimate sources"
+
 
 
 
