@@ -19,11 +19,7 @@ source: |
       // and check for office docs with a QR code embedded
     )
     and any(file.explode(.), .scan.qr.type == "url")
-    // file analysis enrichment function that extracts the file into constituent parts and metadata and then in this case filters for where QR scanner identified a URL //
-    and (
-      // pass the URL to LinkAnalysis //
-      any([beta.linkanalysis(.scan.qr.url)],
-      .credphish.disposition == "phishing")      
+    // file analysis enrichment function that extracts the file into constituent parts and metadata and then in this case filters for where QR scanner identified a URL //   
   )
 authors:
   - name: "Juliet McMullen, Sublime Community"
@@ -41,6 +37,7 @@ detection_methods:
   - "File analysis"
 false_positives:
   - "Legitimate emails containing QR codes with URLS from legitimate tools such as identity authenticators e.g OKTA etc or others from legitimate sources"
+
 
 
 
