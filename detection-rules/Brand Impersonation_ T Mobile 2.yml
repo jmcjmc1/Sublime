@@ -1,4 +1,4 @@
-name: "Brand impersonation: T-Mobile (OCR)"
+name: "JM Brand impersonation: T-Mobile (OCR)"
 description: |
   Detects T-Mobile brand impersonation by scanning for the T-Mobile name inside images and attachments using OCR.
   It targets cases where the text is embedded in an image to bypass traditional text-based filters.
@@ -23,7 +23,7 @@ source: |
   // 3. Exclude legitimate T-Mobile domains to prevent false positives
   and sender.email.domain.root_domain not in ("t-mobile.com", "t-mobile.net", "telekom.com")
 authors:
-  - name: "Custom Detection"
+  - name: "Juliet McMullen, Sublime Community"
 attack_types:
   - "Credential Phishing"
 tactics_and_techniques:
