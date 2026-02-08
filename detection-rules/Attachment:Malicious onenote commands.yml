@@ -1,4 +1,4 @@
-name: "Malicious OneNote commands in attachments"
+name: "JM Malicious OneNote commands in attachments"
 description: |
   Scans for OneNote attachments that contain embedded suspicious commands or scripts that may indicate malicious activity, commonly used to deliver malware.
 type: "rule"
