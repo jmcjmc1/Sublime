@@ -15,7 +15,7 @@ source: |
     and any(file.explode(.), .scan.qr.type == "url")
   )
 authors:
-  - name: "Juliet McMullen,Sublime Community"
+  - name: "Juliet McMullen, Sublime Community"
 tags:
   - "Quishing"
   - "QR Code"
@@ -26,4 +26,5 @@ tactics_and_techniques:
   - "Image as content"
 detection_methods:
   - "QR code analysis"
+
   - "File analysis"
