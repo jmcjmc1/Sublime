@@ -6,8 +6,7 @@ references:
   - "https://bazaar.abuse.ch/sample/aafc0ca9681c1f5c368b0f6da85b90e433f6d62fb34ed2e968e53f83981a800f"
 type: "rule"
 authors:
-  - twitter: "Kyle_Parrish_"
-    name: "Kyle Parrish"
+  -  name: "KSublime Community"
 severity: "high"
 source: |
   type.inbound
