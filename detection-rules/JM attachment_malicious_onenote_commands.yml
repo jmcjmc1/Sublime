@@ -1,0 +1,43 @@
+name: "Malicious OneNote commands in attachments"
+description: |
+  Scans for OneNote attachments that contain embedded suspicious commands or scripts that may indicate malicious activity, commonly used to deliver malware.
+type: "rule"
+authors:
+  -  name: "Sublime Community"
+severity: "high"
+source: |
+  type.inbound
+  and any(attachments,
+          (
+            .file_extension in~ ("one")
+            or .file_extension in~ $file_extensions_common_archives
+          )
+          and any(file.explode(.),
+                  "onenote_file" in .flavors.yara
+                  and any(.scan.strings.strings,
+                          strings.ilike(.,
+                                        "*WshShell*",
+                                        "*ExecuteCmdAsync*",
+                                        "*CreateObject*",
+                                        "*Wscript.Shell*",
+                                        "*schtasks*",
+                                        "*CreateProcess*",
+                                        "*winmgmts*",
+                                        "*SetEnvironmentVariable*",
+                                        "*powershell*",
+                                        "*echo off*"
+                          )
+                  )
+          )
+  )
+attack_types:
+  - "Malware/Ransomware"
+tactics_and_techniques:
+  - "OneNote"
+  - "Scripting"
+detection_methods:
+  - "Archive analysis"
+  - "Content analysis"
+  - "File analysis"
+  - "YARA"
+
