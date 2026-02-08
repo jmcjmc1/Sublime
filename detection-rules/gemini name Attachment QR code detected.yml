@@ -1,0 +1,29 @@
+name: "Attachment: QR code detected"
+description: |
+  Detects inbound messages where an attachment (Image, PDF, or Office Document) contains a QR code. 
+  Attackers use "Quishing" (QR Phishing) to move the user's session to a mobile device and bypass traditional URL inspection.
+type: "rule"
+severity: "medium"
+source: |
+  type.inbound
+  and any(attachments,
+    (
+      .file_type in $file_types_images or 
+      .file_type == "pdf" or 
+      .file_extension in $file_extensions_macros
+    )
+    and any(file.explode(.), .scan.qr.type == "url")
+  )
+authors:
+  - name: "Custom Rule"
+tags:
+  - "Quishing"
+  - "QR Code"
+attack_types:
+  - "Credential Phishing"
+tactics_and_techniques:
+  - "QR code"
+  - "Image as content"
+detection_methods:
+  - "QR code analysis"
+  - "File analysis"

@@ -1,0 +1,36 @@
+name: QR Code in Attachment
+description: >
+  Detects emails containing attachments with embedded QR codes, which are
+  commonly used in phishing campaigns to evade URL inspection.
+severity: medium
+
+type: rule
+source: inbound
+
+conditions:
+  - and:
+      # Email must have at least one attachment
+      - any:
+          - attachment_count > 0
+
+      # At least one attachment contains a QR code
+      - any:
+          - attachment:
+              scan:
+                contains:
+                  type: qr_code
+
+actions:
+  - add_tag: qr_code
+  - add_tag: attachment_phishing
+  - mark_as_suspicious
+
+confidence: 0.60
+
+metadata:
+  attack_type: phishing
+  evasion_technique: qr_code
+  tactic: initial_access
+  technique: T1566
+  reference:
+    - https://attack.mitre.org/techniques/T1566/
