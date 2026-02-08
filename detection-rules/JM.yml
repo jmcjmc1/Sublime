@@ -36,7 +36,8 @@ detection_methods:
   - "QR code analysis"
   - "File analysis"
 false_positives:
-  - "Legitimate emails containg QR codes for mobile authentication from legit tools e'g OKTA etc and QR codes from legitimate sources"
+  - "Legitimate emails containing QR codes with URLS from legitimate tools such as identity authenticators e.g OKTA etc or others from legitimate sources"
+
 
 
 
