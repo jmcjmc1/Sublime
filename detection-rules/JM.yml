@@ -11,6 +11,8 @@ source: |
   // examines all files attached to the email //
     (
       .file_type == "pdf" or
+      .file_type == "jpg" or
+      .file_type == "png" or
       .file_type in $file_types_images or 
       .file_extension in $file_extensions_macros
     )
@@ -30,6 +32,7 @@ detection_methods:
   - "QR code analysis"
 
   - "File analysis"
+
 
 
 
