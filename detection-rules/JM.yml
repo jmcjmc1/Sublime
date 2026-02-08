@@ -1,4 +1,4 @@
-name: "Attachment: QR code detected"
+name: "QR code detected in attachment"
 description: |
   Detects one or more QR codes within an inbound (only) email attachment (image, PDF, or Office Document) contains a QR code. 
   In order to detect QR Phishing which attempts to move the user's session to a mobile device and so bypass standard URL filters.
@@ -28,3 +28,4 @@ detection_methods:
   - "QR code analysis"
 
   - "File analysis"
+
