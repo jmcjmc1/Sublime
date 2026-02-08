@@ -1,0 +1,44 @@
+name: QR Code Detected in Attachment
+description: |
+  Detects inbound messages containing QR codes in image or PDF attachments.
+  QR codes are increasingly used in phishing campaigns to bypass URL filters and 
+  deceive users into clicking malicious links. This rule identifies any message with 
+  attachments that contain scannable QR codes, enabling security teams to investigate 
+  the decoded URL and determine if the QR code points to a malicious destination.
+references:
+  - https://sublime.security/blog/qr-code-phishing-decoding-hidden-threats/
+  - https://docs.sublime.security/docs/yaml-files
+authors:
+  - name: Custom Detection Team
+type: rule
+severity: medium
+tags:
+  - qr_code
+  - phishing
+  - attachment
+attack_types:
+  - Callback Phishing
+  - Credential Phishing
+tactics_and_techniques:
+  - QR code
+  - Evasion
+detection_methods:
+  - QR code analysis
+  - File analysis
+false_positives:
+  - Legitimate business communications containing QR codes for mobile identity verification or authentication
+  - Trusted vendors or partners using QR codes for standard business workflows
+source: |
+  type.inbound
+  and length(attachments) > 0
+  and any(
+    attachments,
+    (
+      .file_type in $file_types_images 
+      or .file_type == "pdf"
+    )
+    and any(
+      file.explode(.),
+      .scan.qr.type is not null
+    )
+  )
