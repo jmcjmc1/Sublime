@@ -1,0 +1,39 @@
+name: "Brand impersonation: T-Mobile (OCR)"
+description: |
+  Detects T-Mobile brand impersonation by scanning for the T-Mobile name inside images and attachments using OCR.
+  It targets cases where the text is embedded in an image to bypass traditional text-based filters.
+type: "rule"
+severity: "high"
+source: |
+  type.inbound
+  and (
+    // 1. Check for T-Mobile in a screenshot of the email body
+    any(file.explode(file.message_screenshot()), 
+      strings.ilike(.scan.ocr.raw, "*T-Mobile*", "*T Mobile*")
+    )
+    or
+    // 2. Check for T-Mobile in any image or PDF attachments
+    any(attachments, 
+      (.file_type in $file_types_images or .file_type == "pdf") and
+      any(file.explode(.), 
+        strings.ilike(.scan.ocr.raw, "*T-Mobile*", "*T Mobile*")
+      )
+    )
+  )
+  // 3. Exclude legitimate T-Mobile domains to prevent false positives
+  and sender.email.domain.root_domain not in ("t-mobile.com", "t-mobile.net", "telekom.com")
+authors:
+  - name: "Custom Detection"
+attack_types:
+  - "Credential Phishing"
+tactics_and_techniques:
+  - "Impersonation: Brand"
+  - "Image as content"
+  - "Social engineering"
+detection_methods:
+  - "Optical Character Recognition"
+  - "Content analysis"
+  - "File analysis"
+tags:
+  - "Quishing"
+  - "T-Mobile"
