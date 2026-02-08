@@ -1,0 +1,22 @@
+name: "QR code detected in attachment"
+description: "Detects the presence of one or more QR codes within an email attachment. QR codes are frequently used in 'Quishing' (QR Phishing) to bypass traditional URL filters."
+type: "rule"
+severity: "medium"
+source: |
+  type.inbound
+  and any(attachments,
+    any(.file_2_qr_codes, .url.url is not null)
+  )
+authors:
+  - name: "Sublime Community"
+attack_types:
+  - "Credential Phishing"
+tactics_and_techniques:
+  - "QR code"
+  - "Out of band pivot"
+detection_methods:
+  - "QR code analysis"
+  - "Computer Vision"
+  - "File analysis"
+tags:
+  - "Quishing"
