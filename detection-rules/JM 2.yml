@@ -1,0 +1,63 @@
+name: "JM2"
+description: |
+  Detects one or more QR codes within an inbound (only) email attachment (image, PDF, or Office Document) contains a QR code. 
+  In order to detect QR Phishing which attempts to move the user's session to a mobile device and so bypass standard URL filters.
+type: "rule"
+severity: "medium"
+source: |
+type.inbound
+and any(attachments,
+        (
+          .file_extension in~ ("one")
+          or .file_extension in~ $file_extensions_common_archives
+        )
+        and any(file.explode(.),
+                "onenote_file" in .flavors.yara
+                and any(.scan.strings.strings,
+                        strings.ilike(.,
+                                      "*WshShell*",
+                                      "*ExecuteCmdAsync*",
+                                      "*CreateObject*",
+                                      "*Wscript.Shell*",
+                                      "*schtasks*",
+                                      "*CreateProcess*",
+                                      "*winmgmts*",
+                                      "*SetEnvironmentVariable*",
+                                      "*powershell*",
+                                      "*echo off*"
+                        )
+                )
+        )
+)
+authors:
+  - name: "modified from Sublime Core Feed"
+tags:
+  - "Quishing"
+  - "QR Code"
+  - "Social engineering"
+attack_types:
+  - "Credential Phishing"
+tactics_and_techniques:
+  - "QR code"
+  - "Image as content"
+detection_methods:
+  - "QR code analysis"
+  - "File analysis"
+false_positives:
+  - "Legitimate emails containing QR codes with URLS from legitimate tools such as identity authenticators e.g OKTA etc or others from legitimate sources"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
