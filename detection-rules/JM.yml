@@ -13,8 +13,8 @@ source: |
       .file_type == "pdf" or
       .file_type == "jpg" or
       .file_type == "png" or
-      // or do it better for images using predefined list of image types //
       .file_type in $file_types_images or 
+      // or do it better for images using predefined list of image types //
       .file_extension in $file_extensions_macros
     )
     and any(file.explode(.), .scan.qr.type == "url")
@@ -33,6 +33,7 @@ detection_methods:
   - "QR code analysis"
 
   - "File analysis"
+
 
 
 
