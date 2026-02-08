@@ -1,0 +1,32 @@
+name: "Brand impersonation: T-Mobile"
+description: |
+  Impersonation of the US telecommunications firm. Most commonly used in credential and callback phishing emails with fake competitions and prizes
+type: "rule"
+severity: "medium"
+source: |
+  type.inbound
+  and sender.display_name in~ (
+    'T-Mobile',
+    'TMobile',
+    'T-Mobile®',
+    'TMobile®'
+  )
+  and sender.email.domain.root_domain not in~ (
+    't-mo.co',
+    'khoros.com',
+    'mydigits.t-mobile.com',
+    'account.t-mobile.com',
+    'devedge.t-mobile.com',
+    't-mobile.com'
+  )
+  and sender.email.email not in $recipient_emails
+attack_types:
+  - "Credential Phishing"
+  - "Callback Phishing"
+tactics_and_techniques:
+  - "Impersonation: Brand"
+  - "Social engineering"
+detection_methods:
+  - "Header analysis"
+  - "Sender analysis"
+id: "bb9cf46b-188e-58f5-996e-b35caf2423a2"
