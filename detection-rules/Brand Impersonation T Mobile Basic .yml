@@ -3,6 +3,7 @@ description: |
   Impersonation of the US telecommunications firm. Most commonly used in credential and callback phishing emails with fake competitions and prizes
 type: "rule"
 severity: "medium"
+author: "Juliet McMullen, Sublime Community"
 source: |
   type.inbound
   and sender.display_name in~ (
