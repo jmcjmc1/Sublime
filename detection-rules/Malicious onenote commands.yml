@@ -40,4 +40,3 @@ detection_methods:
   - "Content analysis"
   - "File analysis"
   - "YARA"
-
